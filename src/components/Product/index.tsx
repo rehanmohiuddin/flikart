@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ProductProp } from "../../types";
 
 /*  
@@ -25,7 +26,19 @@ import { ProductProp } from "../../types";
 
 */
 
-function Index({ product }: { product: ProductProp }) {
+function Index({
+  product,
+  bg = "transparent",
+  flex = "flex-col justify-center	w-56",
+  img = "w-full",
+  children,
+}: {
+  product: ProductProp;
+  bg?: string;
+  flex?: string;
+  img?: string;
+  children?: any;
+}) {
   const {
     _id,
     title,
@@ -43,10 +56,10 @@ function Index({ product }: { product: ProductProp }) {
   return (
     <div
       key={_id}
-      className="flex-col p-2 box-border justify-center items-center border-solid border-1 border-gray-100 hover:scale-80 w-56"
+      className={`p-2 box-border  items-center border-solid border-1 border-gray-100 hover:scale-80  ${flex} ${bg}`}
     >
-      <img className="w-full" src={thumbnail} />
-      <div className="p-2 box-border">
+      <img className={img} src={thumbnail} />
+      <div className="p-2 box-border w-full flex-col">
         <div className="text-xl font-semibold capitalize">{title}</div>
         <div className="text-base font-bold">₹{price}</div>
         <div className="text-green-600 font-semibold">
@@ -59,6 +72,7 @@ function Index({ product }: { product: ProductProp }) {
           {brand}
         </span>
         <div className="text-lg capitalize p-2 px-0">{category}</div>
+        {children}
       </div>
     </div>
   );
